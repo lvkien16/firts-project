@@ -35,8 +35,8 @@ function MainContent({ currentUser }) {
         {currentUser && currentUser.isAdmin && isAdminPath ? (
           <>
             <Route path="/admin" element={<AdminHome />} />
-            <Route path="/admin/products" element={<ProductManagement />} />
-            <Route path="/admin/categories" element={<CategoryManagement />} />
+            <Route path="/admin/product-management" element={<ProductManagement />} />
+            <Route path="/admin/category-management" element={<CategoryManagement />} />
           </>
         ) : (
           <>
