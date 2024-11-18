@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ChildrenCategory from "./ChildrenCategory";
 
 export default function Category({
   category,
@@ -78,7 +79,7 @@ export default function Category({
 
   return (
     <tr>
-      <td onClick={handleShowChildrenCategories}>
+      <td>
         {isEditCategory ? (
           <>
             <input
@@ -97,11 +98,16 @@ export default function Category({
           </>
         ) : (
           <>
-            {categoryName}
+            <span onClick={handleShowChildrenCategories}>{categoryName}</span>
             {isShowChildrenCategories && (
               <ul className="pl-3 text-blue-500">
                 {childrenCategories.map((childrenCategory) => (
-                  <li key={childrenCategory._id}>{childrenCategory.name}</li>
+                  <ChildrenCategory
+                  key={childrenCategory._id}
+                  childrenCategory={childrenCategory}
+                  isUpdate={isUpdate}
+                  setIsUpdate={setIsUpdate}
+                  />
                 ))}
               </ul>
             )}

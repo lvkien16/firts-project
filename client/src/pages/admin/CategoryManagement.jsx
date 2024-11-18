@@ -33,6 +33,7 @@ export default function CategoryManagement() {
         alert("Thêm danh mục thành công");
       } else {
         setNewCategory({ name: "", category: "" });
+        alert("Thêm danh mục thất bại");
       }
     } catch (error) {
       console.log(error);

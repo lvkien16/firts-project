@@ -80,3 +80,20 @@ export const editCategory = async (req, res, next) => {
     next(error);
   }
 };
+
+export const editChildrenCategory = async (req, res, next) => {
+  const {id} = req.params;
+  const {name} = req.body;
+  try {
+    const childrenCategory = await ChildrenCategory.findById(id);
+    if(!childrenCategory) {
+      return res.status(404).json({message: "Children category not found"});
+    }
+    childrenCategory.name = name;
+    await childrenCategory.save();
+    res.status(200).json(childrenCategory);
+  } catch (error) {
+    next(error);
+    
+  }
+}
