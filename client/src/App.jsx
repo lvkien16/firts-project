@@ -9,6 +9,7 @@ import AdminHeader from "./components/AdminHeader";
 import AdminHome from "./pages/admin/AdminHome";
 import ProductManagement from "./pages/admin/ProductManagement";
 import CategoryManagement from "./pages/admin/CategoryManagement";
+import Test from './pages/Test';
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -37,6 +38,7 @@ function MainContent({ currentUser }) {
             <Route path="/admin" element={<AdminHome />} />
             <Route path="/admin/product-management" element={<ProductManagement />} />
             <Route path="/admin/category-management" element={<CategoryManagement />} />
+            <Route path="/admin/test" element={<Test/>} />
           </>
         ) : (
           <>

@@ -9,7 +9,7 @@ import {
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -24,6 +24,8 @@ function classNames(...classes) {
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
+
+  const location = useLocation();
 
   const router = useNavigate();
   const dispatch = useDispatch();
@@ -83,10 +85,11 @@ export default function Header() {
                     to={item.href}
                     aria-current={item.current ? "page" : undefined}
                     className={classNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "rounded-md px-3 py-2 text-sm font-medium"
+                      `rounded-md px-3 py-2 text-sm font-medium ${
+                        location.pathname === item.href
+                          ? "bg-gray-900 text-white"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      }`
                     )}
                   >
                     {item.name}
