@@ -225,6 +225,7 @@ export default function ProductManagement() {
                             {childCategory.name}
                             <input
                               type="radio"
+                              required
                               id={`${childCategory._id}`}
                               name="category"
                               value={childCategory._id}
