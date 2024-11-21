@@ -168,6 +168,9 @@ export default function ProductManagement() {
             <label htmlFor="">product name</label>
             <input onChange={handleChange} type="text" name="name" />
             <br />
+            <label htmlFor="">Quantity</label>
+            <input onChange={handleChange} type="number" name="quantity" />
+            <br />
             <label htmlFor="">thumbnail</label>
             <input
               type="file"

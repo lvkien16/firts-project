@@ -2,7 +2,8 @@ import Product from "../models/product.model.js";
 
 export const createProduct = async (req, res, next) => {
   try {
-    const { name, thumbnail, category, description, price, images } = req.body;
+    const { name, thumbnail, category, description, price, images, quantity } =
+      req.body;
     const product = new Product({
       name,
       thumbnail,
@@ -10,6 +11,7 @@ export const createProduct = async (req, res, next) => {
       description,
       price,
       images,
+      quantity,
     });
     await product.save();
     res.status(201).json(product);
@@ -62,6 +64,33 @@ export const editProduct = async (req, res, next) => {
     product.price = price;
     product.images = images;
     await product.save();
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getProductForUsers = async (req, res, next) => {
+  try {
+    const products = await Product.find({
+      status: "active",
+      quantity: { $gt: 0 },
+    });
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getProductById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ message: `Product with id ${id} not found` });
+    }
     res.status(200).json(product);
   } catch (error) {
     next(error);
