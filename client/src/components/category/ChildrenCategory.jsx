@@ -55,7 +55,10 @@ export default function ChildrenCategory({
           </button>
         </div>
       ) : (
-        <div>{childrenCategoryName}</div>
+        <>
+          <div>{childrenCategoryName}</div>
+          <div>{childrenCategory.quantity}</div>
+        </>
       )}
 
       <button

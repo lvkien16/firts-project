@@ -30,7 +30,7 @@ export default function ProductDetail() {
         const res = await fetch(`/api/product/get-product-by-id/${id}`);
         const data = await res.json();
         setProduct(data);
-        setCurrentShow(data.images[0]);
+        setCurrentShow(data.thumbnail);
       } catch (error) {
         console.log(error);
       }
@@ -49,6 +49,12 @@ export default function ProductDetail() {
               alt={product.name}
             />
             <div className="flex gap-4">
+                <img
+                    onClick={() => handleChangeShow(product.thumbnail)}
+                    className="w-[100px] h-[100px] object-cover hover:cursor-pointer"
+                    src={product.thumbnail}
+                    alt={product.name}
+                  />
               {product.images.length > 0 &&
                 product.images.map((image, index) => (
                   <img

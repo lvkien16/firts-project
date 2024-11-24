@@ -22,8 +22,10 @@ export default function ProductManagement() {
   const [childCategories, setChildCategories] = useState([]);
   const [whichCategory, setWhichCategory] = useState("");
   const [products, setProducts] = useState([]);
+  const [searchProduct, setSearchProduct] = useState("");
 
   useEffect(() => {
+    if(searchProduct !== "") return;
     const fetchProducts = async () => {
       try {
         const res = await fetch("/api/product/get-products");
@@ -34,7 +36,7 @@ export default function ProductManagement() {
       }
     };
     fetchProducts();
-  }, []);
+  }, [searchProduct]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -61,8 +63,13 @@ export default function ProductManagement() {
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "quantity" || name === "price" ? Number(value) : value,
+    });
   };
+  
 
   const openCreateProductModal = () => setModalCreateProductIsOpen(true);
   const closeCreateProductModal = () => setModalCreateProductIsOpen(false);
@@ -137,6 +144,26 @@ export default function ProductManagement() {
     }
   };
 
+  useEffect(() => {
+    if(searchProduct === "") return;
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch(`/api/product/search-product/${searchProduct}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProducts();
+  }, [searchProduct]);
+
   return (
     <>
       <h2>Product Management</h2>
@@ -149,6 +176,9 @@ export default function ProductManagement() {
         <IoIosAddCircleOutline />
         San pham
       </button>
+      <div>
+        <input placeholder="Search..." className="border" type="text" onChange={(e) => setSearchProduct(e.target.value)} />
+      </div>
       {products.map((product) => (
         <Product
           key={product._id}
@@ -156,6 +186,9 @@ export default function ProductManagement() {
           setProducts={setProducts}
         />
       ))}
+      {
+        products.length === 0 && <div>Khong co san pham</div>
+      }
       <Modal
         isOpen={modalCreateProductIsOpen}
         onRequestClose={closeCreateProductModal}
