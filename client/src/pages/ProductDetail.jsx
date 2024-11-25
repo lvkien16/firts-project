@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [currentShow, setCurrentShow] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const {currentUser} = useSelector((state) => state.user);
+
+  const router = useNavigate();
 
   const handleMinus = () => {
     if (quantity > 1) {
@@ -37,6 +41,34 @@ export default function ProductDetail() {
     };
     fetchProduct();
   }, [id]);
+
+  const handleAddToCart = async () => {
+    if(!currentUser) {
+        alert("Please login to add to cart");
+        localStorage.setItem("redirect-cart", `/product/${id}`);
+        router("/login");
+        return;
+    } 
+    try {
+        const res = await fetch("/api/cart/add-to-cart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userId: currentUser._id,
+                productId: product._id,
+                quantity,
+            }),
+        });
+        const data = await res.json();
+        if(res.ok){
+            alert("Add to cart successfully");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+  }
 
   return (
     <div className="container mx-auto p-4">
@@ -86,7 +118,7 @@ export default function ProductDetail() {
             </div>
             <div className="flex gap-5">
               <button className="px-3 py-1 border bg-blue-400">Buy now</button>
-              <button className="px-3 py-1 border bg-blue-400">
+              <button onClick={handleAddToCart} className="px-3 py-1 border bg-blue-400">
                 Add to cart
               </button>
             </div>

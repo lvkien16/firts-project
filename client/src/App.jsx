@@ -9,8 +9,9 @@ import AdminHeader from "./components/AdminHeader";
 import AdminHome from "./pages/admin/AdminHome";
 import ProductManagement from "./pages/admin/ProductManagement";
 import CategoryManagement from "./pages/admin/CategoryManagement";
-import Test from './pages/Test';
+import Test from "./pages/Test";
 import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -37,9 +38,15 @@ function MainContent({ currentUser }) {
         {currentUser && currentUser.isAdmin && isAdminPath ? (
           <>
             <Route path="/admin" element={<AdminHome />} />
-            <Route path="/admin/product-management" element={<ProductManagement />} />
-            <Route path="/admin/category-management" element={<CategoryManagement />} />
-            <Route path="/admin/test" element={<Test/>} />
+            <Route
+              path="/admin/product-management"
+              element={<ProductManagement />}
+            />
+            <Route
+              path="/admin/category-management"
+              element={<CategoryManagement />}
+            />
+            <Route path="/admin/test" element={<Test />} />
           </>
         ) : (
           <>
@@ -48,9 +55,15 @@ function MainContent({ currentUser }) {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/product/:id" element={<ProductDetail />} />
+            {currentUser ? (
+              <Route path="/cart" element={<Cart />} />
+            ) : (
+              <Route path="/cart" element={<Login />} />
+            )}
           </>
         )}
       </Routes>
+      {/* footer */}
     </>
   );
 }

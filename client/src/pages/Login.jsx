@@ -31,7 +31,13 @@ export default function Login() {
         if (data.isAdmin) {
           router("/admin");
         } else {
-          router("/");
+          const redirectCart = localStorage.getItem("redirect-cart");
+          if (redirectCart) {
+            router(redirectCart);
+            localStorage.removeItem("redirect-cart");
+          } else {
+            router("/");
+          }
         }
       } else {
         alert(data.message);
