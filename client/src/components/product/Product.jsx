@@ -171,7 +171,8 @@ export default function Product({ product, setProducts }) {
       <img src={currentProduct.thumbnail} alt="" className="w-40 h-40" />
       <div>{currentProduct.name}</div>
       <div>{currentProduct.price}</div>
-      <div>{currentProduct.category.name}</div>
+      <div>{currentProduct.quantity}</div>
+      <div>{oldCategory}</div>
       <button
         type="button"
         onClick={() => handleDeleteProduct(product._id)}

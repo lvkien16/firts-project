@@ -6,7 +6,7 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [currentShow, setCurrentShow] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const {currentUser} = useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
 
   const router = useNavigate();
 
@@ -43,32 +43,33 @@ export default function ProductDetail() {
   }, [id]);
 
   const handleAddToCart = async () => {
-    if(!currentUser) {
-        alert("Please login to add to cart");
-        localStorage.setItem("redirect-cart", `/product/${id}`);
-        router("/login");
-        return;
-    } 
-    try {
-        const res = await fetch("/api/cart/add-to-cart", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                userId: currentUser._id,
-                productId: product._id,
-                quantity,
-            }),
-        });
-        const data = await res.json();
-        if(res.ok){
-            alert("Add to cart successfully");
-        }
-    } catch (error) {
-        console.log(error);
+    if (!currentUser) {
+      alert("Please login to add to cart");
+      localStorage.setItem("redirect-cart", `/product/${id}`);
+      router("/login");
+      return;
     }
-  }
+    try {
+      const res = await fetch("/api/cart/add-to-cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: currentUser._id,
+          productId: product._id,
+          quantity,
+          price: product.price * quantity,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert("Add to cart successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -81,12 +82,12 @@ export default function ProductDetail() {
               alt={product.name}
             />
             <div className="flex gap-4">
-                <img
-                    onClick={() => handleChangeShow(product.thumbnail)}
-                    className="w-[100px] h-[100px] object-cover hover:cursor-pointer"
-                    src={product.thumbnail}
-                    alt={product.name}
-                  />
+              <img
+                onClick={() => handleChangeShow(product.thumbnail)}
+                className="w-[100px] h-[100px] object-cover hover:cursor-pointer"
+                src={product.thumbnail}
+                alt={product.name}
+              />
               {product.images.length > 0 &&
                 product.images.map((image, index) => (
                   <img
@@ -113,12 +114,13 @@ export default function ProductDetail() {
               <div>{quantity}</div>
               <button onClick={handlePlus}>+</button>
             </div>
-            <div>
-                Ước tính: ${product.price * quantity}
-            </div>
+            <div>Ước tính: ${product.price * quantity}</div>
             <div className="flex gap-5">
               <button className="px-3 py-1 border bg-blue-400">Buy now</button>
-              <button onClick={handleAddToCart} className="px-3 py-1 border bg-blue-400">
+              <button
+                onClick={handleAddToCart}
+                className="px-3 py-1 border bg-blue-400"
+              >
                 Add to cart
               </button>
             </div>
