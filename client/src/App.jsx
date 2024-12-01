@@ -13,6 +13,7 @@ import Test from "./pages/Test";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import OrderDetail from "./pages/OrderDetail";
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -60,6 +61,7 @@ function MainContent({ currentUser }) {
               <>
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/orders/:id" element={<OrderDetail />} />
               </>
             ) : (
               <Route path="/cart" element={<Login />} />

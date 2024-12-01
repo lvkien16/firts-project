@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ProductDetailForCheckout from "./ProductDetailForCheckout";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Checkout() {
   const cartToCheckout = localStorage.getItem("cartToCheckout");
@@ -11,7 +12,7 @@ export default function Checkout() {
         total += JSON.parse(cartToCheckout)[i].price;
     }
 
-    console.log(total);
+    const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...fromData, [e.target.name]: e.target.value });
@@ -38,8 +39,9 @@ export default function Checkout() {
       });
       const data = await res.json();
       if(res.ok){
-        alert("Order created");
         localStorage.removeItem("cartToCheckout");
+        alert("Dat hang thanh cong");
+        navigate(`/orders/${data._id}`);
       }
     } catch (error) {
       console.log(error);
