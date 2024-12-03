@@ -51,7 +51,7 @@ export default function Checkout() {
 
   return (
     <div>
-      {cartToCheckout ? (
+      {cartToCheckout && cartToCheckout ? (
         JSON.parse(cartToCheckout).map((item, index) => {
           return (
             <div key={index}>

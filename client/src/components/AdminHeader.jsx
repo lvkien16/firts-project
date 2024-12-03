@@ -41,7 +41,7 @@ export default function AdminHeader() {
       <Link className="border-2" to="/admin/category-management">
         Quan ly danh muc
       </Link>
-      <Link className="border-2" to="/admin/orders">
+      <Link className="border-2" to="/admin/order-management">
         Quan ly don hang
       </Link>
       <button type="button" onClick={handleLogout} className="border-2">

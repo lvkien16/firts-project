@@ -9,12 +9,12 @@ import AdminHeader from "./components/AdminHeader";
 import AdminHome from "./pages/admin/AdminHome";
 import ProductManagement from "./pages/admin/ProductManagement";
 import CategoryManagement from "./pages/admin/CategoryManagement";
-import Test from "./pages/Test";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import OrderDetail from "./pages/OrderDetail";
 import ListOrder from "./pages/ListOrder";
+import OrderManagement from "./pages/admin/OrderManagement";
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -49,7 +49,7 @@ function MainContent({ currentUser }) {
               path="/admin/category-management"
               element={<CategoryManagement />}
             />
-            <Route path="/admin/test" element={<Test />} />
+            <Route path="/admin/order-management" element={<OrderManagement />} />
           </>
         ) : (
           <>

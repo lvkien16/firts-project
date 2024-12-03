@@ -71,6 +71,29 @@ export default function ProductDetail() {
     }
   };
 
+  const handleBuyNow = () => {
+    if (!currentUser) {
+      alert("Please login to buy now");
+      localStorage.setItem("redirect-cart", `/product/${id}`);
+      router("/login");
+      return;
+    }
+    localStorage.setItem(
+      "cartToCheckout",
+      JSON.stringify([
+        {
+          price: product.price * quantity, // Tổng giá sản phẩm (nếu mua nhiều)
+          quantity, // Số lượng
+          productId: product._id, // ID sản phẩm
+          _id: product._id, // ID sản phẩm
+        },
+      ])
+    );
+
+
+    router("/checkout");
+  }
+
   return (
     <div className="container mx-auto p-4">
       {product && (
@@ -116,7 +139,7 @@ export default function ProductDetail() {
             </div>
             <div>Ước tính: ${product.price * quantity}</div>
             <div className="flex gap-5">
-              <button className="px-3 py-1 border bg-blue-400">Buy now</button>
+              <button onClick={handleBuyNow} className="px-3 py-1 border bg-blue-400">Buy now</button>
               <button
                 onClick={handleAddToCart}
                 className="px-3 py-1 border bg-blue-400"

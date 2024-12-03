@@ -19,7 +19,19 @@ export default function OrderDetail() {
     };
     fetchOrder();
   }, [id]);
-  
+
+  const handleCancelOrder = async () => {
+    try {
+      const res = await fetch(`/api/order/cancel-order/${id}`, {
+        method: "PUT",
+      });
+      const data = await res.json();
+      setOrder(data);
+      alert("Order cancelled successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div>
       {order && (
@@ -35,6 +47,12 @@ export default function OrderDetail() {
             </div>
           ))}
           <p>Total: {order.total}</p>
+          <p>Status: {order.status}</p>
+          {
+            order.status === "Pending" && (
+              <button onClick={handleCancelOrder} className="bg-red-400 border py-2 px-3">Cancel Order</button>
+            )
+          }
         </div>
       )}
     </div>
