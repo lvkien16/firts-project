@@ -18,8 +18,6 @@ export default function Checkout() {
     setFormData({ ...fromData, [e.target.name]: e.target.value });
   };
 
-  console.log(cartToCheckout);
-
   const handleCheckout = async (e) => {
     e.preventDefault();
     try {

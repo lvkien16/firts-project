@@ -6,6 +6,8 @@ export default function AdminOrder({ order, index }) {
   const formattedDate = moment(order.createdAt).format("DD/MM/YYYY");
   const [status, setStatus] = useState(order.status);
 
+  console.log("order", order)
+
   const handleUpdateStatus = async () => {
     try {
       const res = await fetch(`/api/order/update-status/${order._id}`, {

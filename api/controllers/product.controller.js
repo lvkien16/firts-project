@@ -125,3 +125,43 @@ export const searchProduct = async (req, res, next) => {
     next(error);
   }
 };
+
+export const searchProductForUsers = async (req, res, next) => {
+  try {
+    const { search } = req.params;
+    const products = await Product.find({
+      name: { $regex: search, $options: "i" },
+      status: "active",
+      quantity: { $gt: 0 },
+    });
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const getProductFeatured = async (req, res, next) => {
+  try {
+    const products = await Product.find({
+      status: "active",
+      quantity: { $gt: 0 },
+    }).limit(4).sort({ sold: -1 });
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const getProductByCategory = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const products = await Product.find({
+      category: id,
+      status: "active",
+      quantity: { $gt: 0 },
+    });
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+}

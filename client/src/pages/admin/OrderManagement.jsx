@@ -24,6 +24,8 @@ export default function OrderManagement() {
     fetchOrders();
   }, []);
 
+  console.log(orders);
+
   return (
     <div>
       <div>Đơn hàng chờ xử lý: {pendingOrders}</div>

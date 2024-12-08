@@ -15,6 +15,7 @@ import Checkout from "./pages/Checkout";
 import OrderDetail from "./pages/OrderDetail";
 import ListOrder from "./pages/ListOrder";
 import OrderManagement from "./pages/admin/OrderManagement";
+import Coupon from "./pages/admin/Coupon";
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -50,6 +51,7 @@ function MainContent({ currentUser }) {
               element={<CategoryManagement />}
             />
             <Route path="/admin/order-management" element={<OrderManagement />} />
+            <Route path="/admin/coupon" element={<Coupon />} />
           </>
         ) : (
           <>

@@ -30,6 +30,7 @@ export const createOrder = async (req, res, next) => {
     products.forEach(async (product) => {
       const productInDB = await Product.findById(product.productId);
       productInDB.quantity -= product.quantity;
+      productInDB.sold += product.quantity;
       await productInDB.save();
     });
 
@@ -71,6 +72,7 @@ export const cancelOrder = async (req, res, next) => {
     order.products.forEach(async (product) => {
       const productInDB = await Product.findById(product.productId);
       productInDB.quantity += product.quantity;
+      productInDB.sold -= product.quantity;
       await productInDB.save();
     }
     );

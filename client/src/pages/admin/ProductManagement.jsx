@@ -127,10 +127,12 @@ export default function ProductManagement() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('access_token');
     try {
       const response = await fetch("/api/product/create-product", {
         method: "POST",
         headers: {
+          'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),

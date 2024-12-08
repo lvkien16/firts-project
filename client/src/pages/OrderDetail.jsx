@@ -49,7 +49,7 @@ export default function OrderDetail() {
           <p>Total: {order.total}</p>
           <p>Status: {order.status}</p>
           {
-            order.status === "Pending" && (
+            order.status === "Chờ xử lý" && (
               <button onClick={handleCancelOrder} className="bg-red-400 border py-2 px-3">Cancel Order</button>
             )
           }

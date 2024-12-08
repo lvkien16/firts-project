@@ -30,6 +30,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    sold: {
+        type: Number,
+        default: 0,
+    },
     status: {
         type: String,
         default: "active",

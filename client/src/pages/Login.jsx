@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -72,6 +72,9 @@ export default function Login() {
             name="password"
             required
           />
+        </div>
+        <div className="">
+          Don't have an account? <Link to="/register">Register</Link>
         </div>
         <div className="flex justify-center mt-4">
           <button
