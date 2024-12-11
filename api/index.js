@@ -10,6 +10,7 @@ import rateRoutes from "./routes/rate.route.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ mongoose
   .catch((err) => {
     console.log("Failed to connect to MongoDB", err);
   });
+
+  const __dirname = path.resolve();
 
 const app = express();
 
@@ -38,6 +41,12 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/coupon", couponRoutes);
 app.use("/api/rate", rateRoutes);
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client", "dist", "index.html"));
+});
 
 app.get("/", (req, res) => {
   res.send("Hello World");
