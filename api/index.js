@@ -6,6 +6,7 @@ import categoryRoutes from "./routes/category.route.js";
 import cartRoutes from "./routes/cart.route.js"
 import orderRoutes from "./routes/order.route.js";
 import couponRoutes from "./routes/coupon.route.js";
+import rateRoutes from "./routes/rate.route.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -36,6 +37,7 @@ app.use("/api/category", categoryRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/coupon", couponRoutes);
+app.use("/api/rate", rateRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");

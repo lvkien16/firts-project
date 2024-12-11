@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 
 export default function OrderProduct({ item }) {
   const [product, setProduct] = useState(null);
-
-  console.log(item);
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {

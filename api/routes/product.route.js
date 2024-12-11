@@ -8,6 +8,7 @@ import {
   getProductFeatured,
   getProductForUsers,
   getProducts,
+  productsSold,
   searchProduct,
   searchProductForUsers,
 } from "../controllers/product.controller.js";
@@ -25,5 +26,6 @@ router.get("/search-product/:search", searchProduct);
 router.get("/get-products-featured", getProductFeatured);
 router.get("/search-product-for-users/:search", searchProductForUsers);
 router.get("/get-products-by-category/:id", getProductByCategory);
+router.get("/get-products-sold", productsSold);
 
 export default router;

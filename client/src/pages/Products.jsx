@@ -24,7 +24,7 @@ export default function Products() {
   };
 
   useEffect(() => {
-    if (search === "") return;
+    if (search === "") return; // khi ô input trống thì không gọi
     const fetchSearchProducts = async () => {
       try {
         const res = await fetch(
